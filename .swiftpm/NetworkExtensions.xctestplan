@@ -1,0 +1,33 @@
+{
+  "configurations" : [
+    {
+      "id" : "46466A59-28C6-4859-A84B-D8CE4A99A7E7",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "codeCoverage" : {
+      "targets" : [
+        {
+          "containerPath" : "container:",
+          "identifier" : "NetworkExtensions",
+          "name" : "NetworkExtensions"
+        }
+      ]
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:",
+        "identifier" : "NetworkExtensionsTests",
+        "name" : "NetworkExtensionsTests"
+      }
+    }
+  ],
+  "version" : 1
+}
