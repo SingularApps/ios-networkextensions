@@ -37,7 +37,7 @@ let request = try URLRequest(stringUrl: "https://api.server.com")
 	])
 ```
 
-There is a special method to set the `Authorization` token (the default scheme is `Bearer`):
+There is a special method to set the `Authorization` header (the default scheme is `Bearer`):
 
 ```swift
 let request = try URLRequest(stringUrl: "https://api.server.com")
@@ -47,7 +47,7 @@ let request = try URLRequest(stringUrl: "https://api.server.com")
 
 ### Query Items
 
-If you want to add query items to the URL (i.e.: "https://api.server.com/endpoint?query=10"), it can be done this way:
+If you want to add query items to the URL (i.e.: "endpoint?query=10"), it can be done this way:
 
 
 ```swift
@@ -111,17 +111,17 @@ let request = try URLRequest(stringUrl: "https://api.server.com")
 
 ## Sending the Request
 
-Currently, there are two ways to do it, with the completion handler and with the async/await method. Both can have a specific session, otherwise they will use the `URLSession.shared` session.
+Currently, there are two ways to do it, with the completion handler and with the async method. Both can have a specific session, otherwise they will use the `URLSession.shared` session.
 
 ### Completion Handler
 
 It is possible to create a Data Task and auto resume it with a closure as the completion handler:
 
 ```swift
-let task1 = try request.dataTask(on: session) { data, response, error in
+let task1 = request.dataTask(on: session) { data, response, error in
 	doSomething()
 }
-let task2 = try request.dataTask(autoResume: false) { data, response, error in
+let task2 = request.dataTask(autoResume: false) { data, response, error in
 	doSomething()
 }
 task2.resume()
@@ -138,7 +138,7 @@ let (data2, response2) = try await request.send(on: session)
 
 ## Handling Responses
 
-Last but not least, we have added a few extensions in order to help handling the responses from the servers such as the `httpStatusCode` enum, the `response.headers` dictionary and all the conversions from `Data`.
+Last but not least, we have added a few extensions in order to help handling the responses from the servers such as the `httpStatusCode` int, the `response.headers` dictionary and all the conversions from `Data`.
 
 ```swift
 let (data, response) = try await request.send()
