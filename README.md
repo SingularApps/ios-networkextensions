@@ -143,7 +143,7 @@ Last but not least, we have added a few extensions in order to help handling the
 ```swift
 let (data, response) = try await request.send()
 
-guard response.httpStatusCode == .ok else { return }
+guard response.httpStatusCode == 200 else { return }
 
 if let token = response.headers?["token"] {
 	save(token: token)
@@ -154,7 +154,7 @@ let floatValue = data.floatValue
 let doubleValue = data.doubleValue
 let arrayValue = data.arrayValue as? [Int]
 let dictionaryValue = data as? [String: Int]
-let stringValue = data.stringValue()
+let stringValue = data.stringValue
 let string16Value = data.stringValue(encoding: .utf16)
 let person: Person? = data.jsonObject()
 ```
@@ -194,10 +194,10 @@ enum AuthAPI: Endpoint {
 
 func login(credentials: Credentials) async throws -> User {
 	let (data, response) = try await URLRequest(stringUrl: AuthAPI.login.path)
-		.method(.post)
+		.method("post")
 		.json(credentials)
 		.send()
-	guard response.httpStatusCode == .ok else {
+	guard response.httpStatusCode == 200 else {
 		throw CustomError.invalidRequest
 	}
 	guard let user: User = data.jsonObject() else {

@@ -5,7 +5,7 @@ final class URLResponse_StatusCodeTests: XCTestCase {
 
     func testResponseStatusCodeInvalid() throws {
         let response = URLResponse()
-        XCTAssertEqual(response.httpStatusCode, .error)
+        XCTAssertEqual(response.httpStatusCode, -999)
     }
     
     func testResponseStatusCodeValid() throws {
@@ -15,6 +15,6 @@ final class URLResponse_StatusCodeTests: XCTestCase {
             httpVersion: nil,
             headerFields: nil
         )
-        XCTAssertEqual(response?.httpStatusCode, .ok)
+        XCTAssertEqual(response?.httpStatusCode, 200)
     }
 }
