@@ -20,8 +20,8 @@ By default, the HTTP method (verb) for new requests is GET, but it can be change
 
 ```swift
 let request = try URLRequest(stringUrl: "https://api.server.com")
-	.method("post") // The new method is POST
-	.method("delete") // The new method is DELETE
+	.method("post") // The method is now POST
+	.method("delete") // The method is now DELETE
 ```
 
 ### Headers
@@ -91,7 +91,7 @@ let request = try URLRequest(stringUrl: "https://api.server.com")
 	])
 ```
 
-### When (Otherwise)
+### When/Otherwise
 
 This is a special operator that can execute a block according to a condition, just like an `if` or `if/else` statement:
 
