@@ -20,7 +20,7 @@ By default, the HTTP method (verb) for new requests is GET, but it can be change
 
 ```swift
 let request = try URLRequest(stringUrl: "https://api.server.com")
-	.method(.post) // The new method is POST
+	.method("post") // The new method is POST
 	.method("delete") // The new method is DELETE
 ```
 

@@ -7,19 +7,11 @@ final class URLRequest_MethodTests: XCTestCase {
         URL(string: "https://api.server.com/")!
     }
 
-    func testSetRequestMethodWithString() throws {
+    func testSetRequestMethod() throws {
         var request = URLRequest(url: url)
         XCTAssertEqual(request.httpMethod, "GET")
         request = request
-            .method("POST")
+            .method("post")
         XCTAssertEqual(request.httpMethod, "POST")
-    }
-    
-    func testSetRequestMethodWithEnum() throws {
-        var request = URLRequest(url: url)
-        XCTAssertEqual(request.httpMethod, "GET")
-        request = request
-            .method(.delete)
-        XCTAssertEqual(request.httpMethod, "DELETE")
     }
 }

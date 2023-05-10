@@ -30,9 +30,9 @@ final class URLRequest_WhenTests: XCTestCase {
     func testOtherwise() throws {
         let request = URLRequest(url: url)
             .when(1 == 2) { request in
-                request.method(.post)
+                request.method("post")
             } otherwise: { request in
-                request.method(.delete)
+                request.method("delete")
             }
         XCTAssertEqual(request.httpMethod, "DELETE")
     }

@@ -7,16 +7,7 @@ public extension URLRequest {
     /// - Returns: The modified request
     func method(_ methodString: String) -> URLRequest {
         var request = self
-        request.httpMethod = methodString
-        return request
-    }
-    
-    /// Set/Update the HTTP method (verb) for the request (i.e.: GET, POST, PUT)
-    /// - Parameter method: The chosen method using the HTTPMethod enum
-    /// - Returns: The modified request
-    func method(_ method: HTTPMethod) -> URLRequest {
-        var request = self
-        request.httpMethod = method.value
+        request.httpMethod = methodString.uppercased()
         return request
     }
 }
