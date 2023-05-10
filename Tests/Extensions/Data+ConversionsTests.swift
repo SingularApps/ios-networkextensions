@@ -111,7 +111,7 @@ final class Data_ConversionsTests: XCTestCase {
     
     func testStringValueEmpty() throws {
         let data = Data()
-        let value = data.stringValue()
+        let value = data.stringValue
         XCTAssertEqual(value, "")
     }
     

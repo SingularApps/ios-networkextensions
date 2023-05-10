@@ -31,6 +31,11 @@ public extension Data {
     }
     
     /// Converts Data into String
+    var stringValue: String? {
+        stringValue()
+    }
+    
+    /// Converts Data into String
     /// - Parameter encoding: The String encoding
     /// - Returns: The String value
     func stringValue(encoding: String.Encoding = .utf8) -> String? {
