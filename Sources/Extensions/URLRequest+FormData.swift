@@ -14,7 +14,7 @@ public extension URLRequest {
     ///   - parameters: An array of parameters
     ///   - boundary: The boundary for the request
     /// - Returns: The modified request
-    func formData(with parameters: [FormDataParameter], boundary: String = UUID().uuidString) throws -> URLRequest {
+    func formData(_ parameters: [FormDataParameter], boundary: String = UUID().uuidString) throws -> URLRequest {
         var request = self
             .formDataContentType(boundary: boundary)
         var data = Data()

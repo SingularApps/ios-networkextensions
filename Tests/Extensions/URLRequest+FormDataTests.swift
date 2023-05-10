@@ -31,7 +31,7 @@ final class URLRequest_FormDataTests: XCTestCase {
         ]
         let boundary = UUID().uuidString
         let request = try URLRequest(url: url)
-            .formData(with: parameters, boundary: boundary)
+            .formData(parameters, boundary: boundary)
         XCTAssertEqual(request.allHTTPHeaderFields?["Content-Type"], "multipart/form-data; boundary=" + boundary)
         XCTAssertNotNil(request.httpBody)
         let result = String(data: request.httpBody!, encoding: .utf8)
