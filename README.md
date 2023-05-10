@@ -170,6 +170,9 @@ let person: Person? = data.jsonObject()
 Let's see a full example of how to send a request and get the response:
 
 ```swift
+import Foundation
+import NetworkExtensions
+
 enum CustomError: Error {
 	case invalidRequest
 	case invalidResponse
@@ -217,8 +220,6 @@ func login(credentials: Credentials) async throws -> User {
 	return user
 }
 ```
-
----
 
 ## Release Notes
 

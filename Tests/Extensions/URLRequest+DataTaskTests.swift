@@ -16,17 +16,21 @@ final class URLRequest_DataTaskTests: XCTestCase {
         Self.url
     }
     
-    // MARK: - Setup
+    // MARK: - Setup / Tear Down
     
     override class func setUp() {
         guard let person = try? JSONEncoder().encode(Person(name: "John")) else { return }
-        let mock = Mock(url: Self.url,
-                        dataType: .html,
-                        statusCode: 200,
-                        data: [
-                            .get: person
-                        ])
-        mock.register()
+        Mock(url: Self.url,
+             dataType: .json,
+             statusCode: 200,
+             data: [
+                .get: person
+             ])
+        .register()
+    }
+    
+    override class func tearDown() {
+        Mocker.removeAll()
     }
     
     // MARK: - Closure
