@@ -1,7 +1,7 @@
 import XCTest
 @testable import NetworkExtensions
 
-final class URLRequest_SetIfTests: XCTestCase {
+final class URLRequest_WhenTests: XCTestCase {
 
     private var url: URL {
         URL(string: "https://api.server.com/")!
@@ -9,7 +9,7 @@ final class URLRequest_SetIfTests: XCTestCase {
     
     func testConditionIsTrue() throws {
         let request = URLRequest(url: url)
-            .setIf(1 == 1) { request in
+            .when(1 == 1) { request in
                 var request = request
                 request.httpMethod = "POST"
                 return request
@@ -19,7 +19,7 @@ final class URLRequest_SetIfTests: XCTestCase {
     
     func testConditionIsFalse() throws {
         let request = URLRequest(url: url)
-            .setIf(1 == 2) { request in
+            .when(1 == 2) { request in
                 var request = request
                 request.httpMethod = "POST"
                 return request
@@ -29,7 +29,7 @@ final class URLRequest_SetIfTests: XCTestCase {
     
     func testOtherwise() throws {
         let request = URLRequest(url: url)
-            .setIf(1 == 2) { request in
+            .when(1 == 2) { request in
                 request.method(.post)
             } otherwise: { request in
                 request.method(.delete)
