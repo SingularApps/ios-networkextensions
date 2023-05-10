@@ -7,7 +7,7 @@ public extension URLRequest {
     ///   - name: The key of the query item
     ///   - value: The value of the query item
     /// - Returns: The modified request
-    func settingQueryItem(name: String, value: Any) -> URLRequest {
+    func queryItem(name: String, value: Any) -> URLRequest {
         guard let url = self.url,
               var components = URLComponents(url: url, resolvingAgainstBaseURL: false)
         else {
@@ -28,10 +28,10 @@ public extension URLRequest {
     /// Set/Update query item with a dictionary
     /// - Parameter parameters: A dictionary with query items
     /// - Returns: The modified request
-    func settingQueryItems(with parameters: [String: Any]) -> URLRequest {
+    func queryItems(_ parameters: [String: Any]) -> URLRequest {
         var request = self
         for (name, value) in parameters {
-            request = request.settingQueryItem(name: name, value: value)
+            request = request.queryItem(name: name, value: value)
         }
         return request
     }
@@ -41,11 +41,11 @@ public extension URLRequest {
     ///   - source: An encodable object
     ///   - encoder: A JSONEncoder object
     /// - Returns: The modified request
-    func settingQueryItems<T: Encodable>(with source: T, encoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
+    func queryItems<T: Encodable>(_ source: T, encoder: JSONEncoder = JSONEncoder()) throws -> URLRequest {
         let encoded = try encoder.encode(source)
         let jsonObject = try JSONSerialization.jsonObject(with: encoded, options: .mutableContainers)
         let parameters = try anyToDictionary(jsonObject)
-        return self.settingQueryItems(with: parameters)
+        return self.queryItems(parameters)
     }
 }
 

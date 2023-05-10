@@ -10,13 +10,13 @@ final class URLRequest_QueryItemsTests: XCTestCase {
     func testSetRequestQueryItemOnEmptyRequest() throws {
         var request = URLRequest(url: url)
         request.url = nil
-        request = request.settingQueryItem(name: "id", value: 10)
+        request = request.queryItem(name: "id", value: 10)
         XCTAssertNil(request.url)
     }
     
     func testSetRequestQueryItem() throws {
         let request = URLRequest(url: url)
-            .settingQueryItem(name: "id", value: 10)
+            .queryItem(name: "id", value: 10)
         XCTAssertNotNil(request.url)
         let components = URLComponents(url: request.url!, resolvingAgainstBaseURL: false)
         XCTAssertNotNil(components)
@@ -27,8 +27,8 @@ final class URLRequest_QueryItemsTests: XCTestCase {
     
     func testUpdateRequestQueryItem() throws {
         let request = URLRequest(url: url)
-            .settingQueryItem(name: "id", value: 10)
-            .settingQueryItem(name: "id", value: 20)
+            .queryItem(name: "id", value: 10)
+            .queryItem(name: "id", value: 20)
         XCTAssertNotNil(request.url)
         let components = URLComponents(url: request.url!, resolvingAgainstBaseURL: false)
         XCTAssertNotNil(components)
@@ -40,7 +40,7 @@ final class URLRequest_QueryItemsTests: XCTestCase {
     
     func testSetRequestQueryItemsWithDictionary() throws {
         let request = URLRequest(url: url)
-            .settingQueryItems(with: [
+            .queryItems([
             "id": 10,
             "name": "John"
         ])
@@ -59,7 +59,7 @@ final class URLRequest_QueryItemsTests: XCTestCase {
             let name: String
         }
         let request = try URLRequest(url: url)
-            .settingQueryItems(with: Person(id: 10, name: "John"))
+            .queryItems(Person(id: 10, name: "John"))
         XCTAssertNotNil(request.url)
         let components = URLComponents(url: request.url!, resolvingAgainstBaseURL: false)
         XCTAssertNotNil(components)
