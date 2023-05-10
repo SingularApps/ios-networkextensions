@@ -10,7 +10,7 @@ final class URLRequest_JSONTests: XCTestCase {
     func testSetRequestJSONContentType() throws {
         var request = URLRequest(url: url)
         XCTAssertNil(request.allHTTPHeaderFields)
-        request = request.settingJsonContentType()
+        request = request.jsonContentType()
         XCTAssertEqual(request.allHTTPHeaderFields?["Content-Type"], "application/json")
     }
     
@@ -21,7 +21,7 @@ final class URLRequest_JSONTests: XCTestCase {
         }
         let parameters = Person(name: "John", age: 30)
         let request = try URLRequest(url: url)
-            .settingJsonBody(with: parameters)
+            .json(parameters)
         XCTAssertNotNil(request.httpBody)
         let body = try JSONDecoder().decode(Person.self, from: request.httpBody!)
         XCTAssertEqual(parameters, body)
@@ -33,7 +33,7 @@ final class URLRequest_JSONTests: XCTestCase {
             "age": 30
         ]
         let request = try URLRequest(url: url)
-            .settingJsonBody(with: parameters)
+            .json(parameters)
         XCTAssertNotNil(request.httpBody)
         let body = try JSONSerialization.jsonObject(with: request.httpBody!) as? [String: Any]
         XCTAssertNotNil(body)
