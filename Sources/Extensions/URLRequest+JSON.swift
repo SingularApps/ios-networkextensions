@@ -5,7 +5,7 @@ public extension URLRequest {
     /// Set/Update the ContentType header to "application/json"
     /// - Returns: The modified request
     func settingJsonContentType() -> URLRequest {
-        self.settingHeader(key: "Content-Type", value: "application/json")
+        self.header(name: "Content-Type", value: "application/json")
     }
     
     /// Set/Update the body as a JSON object from an Encodable object

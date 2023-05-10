@@ -6,7 +6,7 @@ public extension URLRequest {
     /// - Parameter boundary: The boundary for the request
     /// - Returns: The modified request
     func formDataContentType(boundary: String) -> URLRequest {
-        self.settingHeader(key: "Content-Type", value: "multipart/form-data; boundary=" + boundary)
+        self.header(name: "Content-Type", value: "multipart/form-data; boundary=" + boundary)
     }
     
     /// Set/Update the body as a JSON object from a list of parameters

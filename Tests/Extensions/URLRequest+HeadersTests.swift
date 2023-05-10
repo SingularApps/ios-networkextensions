@@ -12,7 +12,7 @@ final class URLRequest_HeadersTests: XCTestCase {
     func testSetRequestHeaders() throws {
         var request = URLRequest(url: url)
         XCTAssertNil(request.allHTTPHeaderFields)
-        request = request.setting(headers: [
+        request = request.headers([
             "Content-Type": "application/json",
             "Authorization": "Bear abcd"
         ])
@@ -22,11 +22,11 @@ final class URLRequest_HeadersTests: XCTestCase {
     
     func testUpdateRequestHeaders() throws {
         var request = URLRequest(url: url)
-            .setting(headers: [
+            .headers([
                 "Content-Type": "text/plain"
             ])
         XCTAssertEqual(request.allHTTPHeaderFields?["Content-Type"], "text/plain")
-        request = request.setting(headers: [
+        request = request.headers([
             "Content-Type": "application/json",
             "Authorization": "Bear abcd"
         ])
@@ -40,8 +40,8 @@ final class URLRequest_HeadersTests: XCTestCase {
         var request = URLRequest(url: url)
         XCTAssertNil(request.allHTTPHeaderFields)
         request = request
-            .settingHeader(key: "Content-Type", value: "application/json")
-            .settingHeader(key: "Number", value: 10)
+            .header(name: "Content-Type", value: "application/json")
+            .header(name: "Number", value: 10)
         XCTAssertNotNil(request.allHTTPHeaderFields)
         XCTAssertEqual(request.allHTTPHeaderFields!["Content-Type"]!, "application/json")
         XCTAssertEqual(Int(request.allHTTPHeaderFields!["Number"]!), 10)
@@ -49,14 +49,14 @@ final class URLRequest_HeadersTests: XCTestCase {
     
     func testUpdateRequestHeader() throws {
         var request = URLRequest(url: url)
-            .settingHeader(key: "Content-Type", value: "text/plain")
-            .settingHeader(key: "Number", value: 5)
+            .header(name: "Content-Type", value: "text/plain")
+            .header(name: "Number", value: 5)
         XCTAssertNotNil(request.allHTTPHeaderFields)
         XCTAssertEqual(request.allHTTPHeaderFields!["Content-Type"]!, "text/plain")
         XCTAssertEqual(Int(request.allHTTPHeaderFields!["Number"]!), 5)
         request = request
-            .settingHeader(key: "Content-Type", value: "application/json")
-            .settingHeader(key: "Number", value: 10)
+            .header(name: "Content-Type", value: "application/json")
+            .header(name: "Number", value: 10)
         XCTAssertNotNil(request.allHTTPHeaderFields)
         XCTAssertEqual(request.allHTTPHeaderFields!["Content-Type"]!, "application/json")
         XCTAssertEqual(Int(request.allHTTPHeaderFields!["Number"]!), 10)
@@ -68,7 +68,7 @@ final class URLRequest_HeadersTests: XCTestCase {
         var request = URLRequest(url: url)
         XCTAssertNil(request.allHTTPHeaderFields)
         request = request
-            .settingAuthorization(token: "abcde")
+            .authorization(token: "abcde")
         XCTAssertEqual(request.allHTTPHeaderFields?["Authorization"], "Bearer abcde")
     }
 }
