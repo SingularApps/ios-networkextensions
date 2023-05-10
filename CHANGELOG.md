@@ -7,7 +7,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [1.0.0] - 2023-05-09
+## [1.0.0] - 2023-05-10
 
 ### Added
 
@@ -17,22 +17,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - README.md
 - Sources/Extensions/Data+Conversions.swift
 - Sources/Extensions/URLRequest+DataTask.swift
-- Sources/Extensions/URLRequest+SetIf.swift
 - Sources/Extensions/URLRequest+FormData.swift
 - Sources/Extensions/URLRequest+Headers.swift
 - Sources/Extensions/URLRequest+Init.swift
 - Sources/Extensions/URLRequest+JSON.swift
 - Sources/Extensions/URLRequest+Method.swift
 - Sources/Extensions/URLRequest+QueryItems.swift
-- Sources/Extensions/URLRequest+SetIf.swift
+- Sources/Extensions/URLRequest+When.swift
 - Sources/Extensions/URLResponse+Headers.swift
 - Sources/Extensions/URLResponse+StatusCode.swift
 - Sources/Models/AnyToDictionary.swift
-- Sources/Models/Endpoint.swift
 - Sources/Models/FileFormDataParameter.swift
 - Sources/Models/FormDataParameter.swift
-- Sources/Models/HTTPMethod.swift
-- Sources/Models/HTTPStatusCode.swift
 - Sources/Models/JSONFormDataParameter.swift
 - Sources/Models/NetworkingError.swift
 - Sources/Models/TextFormDataParameter.swift
@@ -44,7 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Tests/Extensions/URLRequest+JSONTests.swift
 - Tests/Extensions/URLRequest+MethodTests.swift
 - Tests/Extensions/URLRequest+QueryItemsTests.swift
-- Tests/Extensions/URLRequest+SetfTests.swift
+- Tests/Extensions/URLRequest+WhenTests.swift
 - Tests/Extensions/URLResponse+HeadersTests.swift
 - Tests/Extensions/URLResponse+StatusCodeTests.swift
 - Tests/Models/AnyToDictionaryTests.swift
