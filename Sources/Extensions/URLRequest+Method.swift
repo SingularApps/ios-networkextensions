@@ -5,7 +5,7 @@ public extension URLRequest {
     /// Set/Update the HTTP method (verb) for the request (i.e.: GET, POST, PUT)
     /// - Parameter methodString: The method as a String value
     /// - Returns: The modified request
-    func setting(methodString: String) -> URLRequest {
+    func method(_ methodString: String) -> URLRequest {
         var request = self
         request.httpMethod = methodString
         return request
@@ -14,7 +14,7 @@ public extension URLRequest {
     /// Set/Update the HTTP method (verb) for the request (i.e.: GET, POST, PUT)
     /// - Parameter method: The chosen method using the HTTPMethod enum
     /// - Returns: The modified request
-    func setting(method: HTTPMethod) -> URLRequest {
+    func method(_ method: HTTPMethod) -> URLRequest {
         var request = self
         request.httpMethod = method.value
         return request

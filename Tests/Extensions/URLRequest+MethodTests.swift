@@ -11,7 +11,7 @@ final class URLRequest_MethodTests: XCTestCase {
         var request = URLRequest(url: url)
         XCTAssertEqual(request.httpMethod, "GET")
         request = request
-            .setting(methodString: "POST")
+            .method("POST")
         XCTAssertEqual(request.httpMethod, "POST")
     }
     
@@ -19,7 +19,7 @@ final class URLRequest_MethodTests: XCTestCase {
         var request = URLRequest(url: url)
         XCTAssertEqual(request.httpMethod, "GET")
         request = request
-            .setting(method: .delete)
+            .method(.delete)
         XCTAssertEqual(request.httpMethod, "DELETE")
     }
 }
