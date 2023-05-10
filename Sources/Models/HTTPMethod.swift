@@ -12,4 +12,8 @@ public enum HTTPMethod: String {
     case post
     case put
     case trace
+    
+    var value: String {
+        rawValue.uppercased()
+    }
 }

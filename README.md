@@ -26,6 +26,10 @@ We can also add endpoints using the `Endpoint` protocol:
 enum AuthAPI: Endpoint {
 	case login
 	case register
+ 
+	var method: HTTPMethod {
+		.post
+	}
 
 	var path: String {
 		switch self {

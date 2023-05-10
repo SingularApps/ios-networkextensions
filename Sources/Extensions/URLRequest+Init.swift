@@ -21,5 +21,6 @@ public extension URLRequest {
     ///   - endpoint: The chosen endpoint
     init(endpoint: Endpoint) throws {
         try self.init(endpoint: endpoint.path)
+        httpMethod = endpoint.method.value
     }
 }

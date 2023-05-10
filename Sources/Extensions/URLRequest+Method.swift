@@ -16,7 +16,7 @@ public extension URLRequest {
     /// - Returns: The modified request
     func setting(method: HTTPMethod) -> URLRequest {
         var request = self
-        request.httpMethod = method.rawValue.uppercased()
+        request.httpMethod = method.value
         return request
     }
 }

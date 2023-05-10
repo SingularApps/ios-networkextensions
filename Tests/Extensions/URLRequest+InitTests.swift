@@ -32,9 +32,13 @@ final class URLRequest_InitTests: XCTestCase {
 
     
     func testCreateRequestWithEndpointProtocol() throws {
-        enum LoginAPI: Endpoint {
+        enum AuthAPI: Endpoint {
             case login
             case register
+            
+            var method: HTTPMethod {
+                .post
+            }
             
             var path: String {
                 switch self {
@@ -43,11 +47,13 @@ final class URLRequest_InitTests: XCTestCase {
                 }
             }
         }
-        let request1 = try URLRequest(endpoint: LoginAPI.login)
+        let request1 = try URLRequest(endpoint: AuthAPI.login)
         XCTAssertNotNil(request1)
         XCTAssertEqual(request1.url?.absoluteString, "https://api.server.com/login")
-        let request2 = try URLRequest(endpoint: LoginAPI.register)
+        XCTAssertEqual(request1.httpMethod, "POST")
+        let request2 = try URLRequest(endpoint: AuthAPI.register)
         XCTAssertNotNil(request2)
         XCTAssertEqual(request2.url?.absoluteString, "https://api.server.com/register")
+        XCTAssertEqual(request2.httpMethod, "POST")
     }
 }
