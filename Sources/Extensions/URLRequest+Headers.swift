@@ -15,7 +15,7 @@ public extension URLRequest {
     
     /// Set/Update a header with key and value. It will use String(describing: value) as the value should be a string
     /// - Parameters:
-    ///   - key: The key of the header
+    ///   - name: The name of the header
     ///   - value: The value of the header
     /// - Returns: The modified request
     func header(name: String, value: Any) -> URLRequest {

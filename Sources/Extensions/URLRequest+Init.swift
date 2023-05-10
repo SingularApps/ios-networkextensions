@@ -2,9 +2,9 @@ import Foundation
 
 public extension URLRequest {
     
-    /// Create a new request using the base URL and endpoint
+    /// Create a new request using a string as URL
     /// - Parameters:
-    ///   - endpoint: The chosen endpoint
+    ///   - stringUrl: The URL string
     init(stringUrl: String) throws {
         guard let url = URL(string: stringUrl) else {
             throw NetworkingError.invalidURL
