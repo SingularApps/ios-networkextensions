@@ -2,57 +2,25 @@
 
 This package adds some Extensions for making network (HTTP) requests with the Foundation framework.
 
-## Base URL
-
-A default base URL can be set via the `static` property in the `URLRequest` struct:
-
-```swift
-URLRequest.baseURL = "https://api.server.com/"
-
-let request = try URLRequest() // Uses the default base URL   
-```
-
-### Endpoint
-
-We can add endpoints as `String`:
-
-```swift
-let request = try URLRequest(endpoint: "users") // Uses the default base URL with the users endpoint
-```
-
-We can also add endpoints using the `Endpoint` protocol:
-
-```swift
-enum AuthAPI: Endpoint {
-	case login
-	case register
- 
-	var method: HTTPMethod {
-		.post
-	}
-
-	var path: String {
-		switch self {
-		case .login: return "login"
-		case .register: return "register"
-		}
-	}
-}
-let request = try URLRequest(endpoint: AuthAPI.login)
-```
-
 ## Request Operations
 
 There are many operations that can be chained in order to build a full request (see full example at the end). Let's see all the available operations:
+
+### Init with String URL
+
+There is a way to create requests using a `String` url:
+
+```swift
+let request = try URLRequest(stringUrl: "https://api.server.com")
+```
 
 ### Method
 
 By default, the HTTP method (verb) for new requests is GET, but it can be changed like this:
 
 ```swift
-let request1 = try URLRequest()
+let request = try URLRequest(stringUrl: "https://api.server.com")
 	.method(.post) // The new method is POST
-let request2 = try URLRequest()
 	.method("delete") // The new method is DELETE
 ```
 
@@ -61,21 +29,19 @@ let request2 = try URLRequest()
 To add custom headers to the request, there is a simple way now:
 
 ```swift
-let request1 = try URLRequest()
-	. headers([
+let request = try URLRequest(stringUrl: "https://api.server.com")
+	.header(name: "Header", value: 99)
+	.headers([
 		"Header1": "Value1",
 		"Header2": 10
 	])
-let request2 = try URLRequest()
-	.header(name: "Header", value: 99)
 ```
 
 There is a special method to set the `Authorization` token (the default scheme is `Bearer`):
 
 ```swift
-let request3 = try URLRequest()
+let request = try URLRequest(stringUrl: "https://api.server.com")
 	.authorization(token: "abcde")
-let request4 = try URLRequest()
 	.authorization(scheme: "Basic", token: "abcde")
 ```
 
@@ -85,14 +51,12 @@ If you want to add query items to the URL (i.e.: "https://api.server.com/endpoin
 
 
 ```swift
-let request1 = try URLRequest()
+let request = try URLRequest(stringUrl: "https://api.server.com")
 	.queryItem(name: "query", value: 10)
-let request2 = try URLRequest()
 	.queryItems([
 		"field1": "value",
 		"field2": 15
 	])
-let request3 = try URLRequest()
 	.queryItems(encodableObject)
 ```
 
@@ -101,12 +65,11 @@ let request3 = try URLRequest()
 In order to send requests with a JSON body, we can use these methods with encodable objects or dictionaries:
 
 ```swift
-let request1 = try URLRequest()
+let request = try URLRequest(stringUrl: "https://api.server.com")
 	.json([
 		"field1": "value",
 		"field2": 15
 	])
-let request2 = try URLRequest()
 	.json(encodableObject)
 ```
 
@@ -115,7 +78,7 @@ let request2 = try URLRequest()
 Finally, we can send form-data requests with some special parameters:
 
 ```swift
-let request = try URLRequest()
+let request = try URLRequest(stringUrl: "https://api.server.com")
 	.formData([
 		TextFormDataParameter(name: "name", value: "John"),
 		FileFormDataParameter(
@@ -133,15 +96,13 @@ let request = try URLRequest()
 This is a special operator that can execute a block according to a condition, just like an `if` or `if/else` statement:
 
 ```swift
-let request1 = try URLRequest()
+let request = try URLRequest(stringUrl: "https://api.server.com")
 	.when(condition1) { request in
 		request.method(.post)
 	}
-
-let request2 = URLRequest()
 	.when(condition2) { request in
 		var request = request
-		request.httpMethod = "POST"
+		request.httpMethod = "PUT"
 		return request
 	} otherwise: { request in
 		request.method(.delete)
@@ -220,17 +181,19 @@ struct User: Codable {
 }
 
 enum AuthAPI: Endpoint {
+	static var baseUrl = "https://api.server.com/"
 	case login
 	case register
 	var path: String {
 		switch self {
-		case .login: return "Login"
-		case .register: return "Register"			}
+		case .login: return baseUrl + "Login"
+		case .register: return baseUrl + "Register"
+		}
 	}
 }
 
 func login(credentials: Credentials) async throws -> User {
-	let (data, response) = try await URLRequest(endpoint: AuthAPI.login)
+	let (data, response) = try await URLRequest(stringUrl: AuthAPI.login.path)
 		.method(.post)
 		.json(credentials)
 		.send()
