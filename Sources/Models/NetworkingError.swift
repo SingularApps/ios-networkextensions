@@ -4,4 +4,5 @@ import Foundation
 public enum NetworkingError: Error, Equatable {
     
     case invalidURL
+    case couldNotDecodeResponseData
 }

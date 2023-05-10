@@ -121,10 +121,15 @@ It is possible to create a Data Task and auto resume it with a closure as the co
 let task1 = request.dataTask(on: session) { data, response, error in
 	doSomething()
 }
+
 let task2 = request.dataTask(autoResume: false) { data, response, error in
 	doSomething()
 }
 task2.resume()
+
+let task3 = request.dataTask(waitingFor: Person.self) { person, error in
+	doSomething()
+}
 ```
 
 ### Async/Await
@@ -134,6 +139,7 @@ There is also support to use the `async/await` feature:
 ```swift
 let (data1, response1) = try await request.send()
 let (data2, response2) = try await request.send(on: session)
+let person = try await request.send(waitingFor: Person.self)
 ```
 
 ## Handling Responses
@@ -211,3 +217,13 @@ func login(credentials: Credentials) async throws -> User {
 	return user
 }
 ```
+
+---
+
+## Release Notes
+
+See [CHANGELOG.md](https://github.com/SingularApps/ios-networkextensions/blob/main/CHANGELOG.md) for a list of changes.
+
+## License
+
+This package is available under the MIT license. See the LICENSE file for more info.

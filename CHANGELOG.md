@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2023-05-10
+
+### Added
+
+- URLRequest.dataTask(on:waitingFor:decoder:autoResume:callback:) -> URLSessionDataTask
+- URLRequest.send(on:waitingFor:decoder:) async throws -> T
+
 ## [1.0.0] - 2023-05-10
 
 ### Added
