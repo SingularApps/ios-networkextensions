@@ -182,20 +182,23 @@ struct User: Codable {
 
 enum AuthAPI: Endpoint {
 	static var baseUrl = "https://api.server.com/"
+	
 	case login
 	case register
+	
 	var path: String {
 		let path: String
 		switch self {
 		case .login: path = "Login"
-		case .register: return path = "Register"
+		case .register: path = "Register"
 		}
 		return AuthAPI.baseUrl + path
 	}
 }
 
 func login(credentials: Credentials) async throws -> User {
-	let (data, response) = try await URLRequest(stringUrl: AuthAPI.login.path)
+	let endpoint: AuthAPI = .login
+	let (data, response) = try await URLRequest(stringUrl: endpoint.path)
 		.method("post")
 		.json(credentials)
 		.send()
