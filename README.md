@@ -51,9 +51,9 @@ By default, the HTTP method (verb) for new requests is GET, but it can be change
 
 ```swift
 let request1 = try URLRequest()
-	.setting(method: .post) // The new method is POST
+	.method(.post) // The new method is POST
 let request2 = try URLRequest()
-	.setting(method: "delete") // The new method is DELETE
+	.method("delete") // The new method is DELETE
 ```
 
 ### Headers
@@ -62,21 +62,21 @@ To add custom headers to the request, there is a simple way now:
 
 ```swift
 let request1 = try URLRequest()
-	.setting(headers: [
+	. headers([
 		"Header1": "Value1",
 		"Header2": 10
 	])
 let request2 = try URLRequest()
-	.settingHeader(key: "Header", value: 99)
+	.header(name: "Header", value: 99)
 ```
 
 There is a special method to set the `Authorization` token (the default scheme is `Bearer`):
 
 ```swift
 let request3 = try URLRequest()
-	.settingAuthorization(token: "abcde")
+	.authorization(token: "abcde")
 let request4 = try URLRequest()
-	.settingAuthorization(scheme: "Basic", token: "abcde")
+	.authorization(scheme: "Basic", token: "abcde")
 ```
 
 ### Query Items
@@ -86,14 +86,14 @@ If you want to add query items to the URL (i.e.: "https://api.server.com/endpoin
 
 ```swift
 let request1 = try URLRequest()
-	.settingQueryItem(name: "query", value: 10)
+	.queryItem(name: "query", value: 10)
 let request2 = try URLRequest()
-	.settingQueryItems(with: [
+	.queryItems([
 		"field1": "value",
 		"field2": 15
 	])
 let request3 = try URLRequest()
-	.settingQueryItems(with: encodableObject)
+	.queryItems(encodableObject)
 ```
 
 ### JSON Body
@@ -102,12 +102,12 @@ In order to send requests with a JSON body, we can use these methods with encoda
 
 ```swift
 let request1 = try URLRequest()
-	.settingJsonBody(with: [
+	.json([
 		"field1": "value",
 		"field2": 15
 	])
 let request2 = try URLRequest()
-	.settingJsonBody(with: encodableObject)
+	.json(encodableObject)
 ```
 
 ### Form-Data Body
@@ -116,7 +116,7 @@ Finally, we can send form-data requests with some special parameters:
 
 ```swift
 let request = try URLRequest()
-	.settingFormDataBody(with: [
+	.formData([
 		TextFormDataParameter(name: "name", value: "John"),
 		FileFormDataParameter(
 			name: "image",
@@ -128,24 +128,24 @@ let request = try URLRequest()
 	])
 ```
 
-### Set-If (Otherwise)
+### When (Otherwise)
 
 This is a special operator that can execute a block according to a condition, just like an `if` or `if/else` statement:
 
 ```swift
 let request1 = try URLRequest()
-    .setIf(condition1) { request in
-        var request = request
-        request.httpMethod = "POST"
-        return request
-    }
+	.when(condition1) { request in
+		request.method(.post)
+	}
 
 let request2 = URLRequest()
-    .setIf(condition2) { request in
-        request.setting(method: .post)
-    } otherwise: { request in
-        request.setting(method: .delete)
-    }
+	.when(condition2) { request in
+		var request = request
+		request.httpMethod = "POST"
+		return request
+	} otherwise: { request in
+		request.method(.delete)
+	}
 ```
 
 ## Sending the Request
@@ -157,10 +157,10 @@ Currently, there are two ways to do it, with the completion handler and with the
 It is possible to create a Data Task and auto resume it with a closure as the completion handler:
 
 ```swift
-let task1 = try URLRequest().dataTask(on: session) { data, response, error in
+let task1 = try request.dataTask(on: session) { data, response, error in
 	doSomething()
 }
-let task2 = try URLRequest().dataTask(autoResume: false) { data, response, error in
+let task2 = try request.dataTask(autoResume: false) { data, response, error in
 	doSomething()
 }
 task2.resume()
@@ -171,8 +171,8 @@ task2.resume()
 There is also support to use the `async/await` feature:
 
 ```swift
-let (data1, response1) = try await URLRequest().send()
-let (data2, response2) = try await URLRequest().send(on: session)
+let (data1, response1) = try await request.send()
+let (data2, response2) = try await request.send(on: session)
 ```
 
 ## Handling Responses
@@ -180,7 +180,7 @@ let (data2, response2) = try await URLRequest().send(on: session)
 Last but not least, we have added a few extensions in order to help handling the responses from the servers such as the `httpStatusCode` enum, the `response.headers` dictionary and all the conversions from `Data`.
 
 ```swift
-let (data, response) = try await URLRequest().send()
+let (data, response) = try await request.send()
 
 guard response.httpStatusCode == .ok else { return }
 
@@ -231,8 +231,8 @@ enum AuthAPI: Endpoint {
 
 func login(credentials: Credentials) async throws -> User {
 	let (data, response) = try await URLRequest(endpoint: AuthAPI.login)
-		.setting(method: .post)
-		.settingJsonBody(with: credentials)
+		.method(.post)
+		.json(credentials)
 		.send()
 	guard response.httpStatusCode == .ok else {
 		throw CustomError.invalidRequest
