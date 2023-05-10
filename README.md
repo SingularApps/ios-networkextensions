@@ -146,14 +146,14 @@ let (data, response) = try await request.send()
 guard response.httpStatusCode == 200 else { return }
 
 if let token = response.headers?["token"] {
-	save(token: token)
+	// save token
 }
 
 let intValue = data.intValue
 let floatValue = data.floatValue
 let doubleValue = data.doubleValue
 let arrayValue = data.arrayValue as? [Int]
-let dictionaryValue = data as? [String: Int]
+let dictionaryValue = data.dictionaryValue as? [String: Int]
 let stringValue = data.stringValue
 let string16Value = data.stringValue(encoding: .utf16)
 let person: Person? = data.jsonObject()
@@ -185,10 +185,12 @@ enum AuthAPI: Endpoint {
 	case login
 	case register
 	var path: String {
+		let path: String
 		switch self {
-		case .login: return baseUrl + "Login"
-		case .register: return baseUrl + "Register"
+		case .login: path = "Login"
+		case .register: return path = "Register"
 		}
+		return AuthAPI.baseUrl + path
 	}
 }
 
