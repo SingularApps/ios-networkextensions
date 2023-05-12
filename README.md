@@ -2,6 +2,22 @@
 
 This package adds some Extensions for making network (HTTP) requests with the Foundation framework.
 
+## Install
+
+Using Swift Package Manager, add the dependency to your target:
+
+```swift
+dependencies: [
+    .package(url: "https://github.com/SingularApps/ios-networkextensions.git", from: "1.1.0")
+],
+```
+
+And then on your code, don't forget to import it:
+
+```swift
+import NetworkExtensions
+```
+
 ## Request Operations
 
 There are many operations that can be chained in order to build a full request (see full example at the end). Let's see all the available operations:
